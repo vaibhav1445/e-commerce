@@ -28,7 +28,10 @@ const Cart = () => {
                       type="number"
                       value={item.quantity}
                       min={1}
-                      onChange={(e) => updateQuantity(item._id, parseInt(e.target.value))}
+                      onChange={(e) => {
+                        const qty = parseInt(e.target.value);
+                        if (!isNaN(qty)) updateQuantity(item._id, qty);
+                      }}
                       className="w-16 p-1 border rounded text-center"
                     />
                   </div>

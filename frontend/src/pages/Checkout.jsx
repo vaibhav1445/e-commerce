@@ -1,27 +1,27 @@
+// src/pages/Checkout.jsx
 import React, { useContext, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Checkout = () => {
-  const { cart, clearCart } = useContext(CartContext); // ✅ use clearCart instead of setCart
+  const { cart, placeOrder } = useContext(CartContext);
   const [address, setAddress] = useState('');
   const navigate = useNavigate();
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!address.trim()) {
       toast.error("Please enter a shipping address!");
       return;
     }
 
-    toast.success("Order placed successfully!");
-    clearCart(); // ✅ safely clear cart via context
+    const order = await placeOrder(address);
 
-    setTimeout(() => {
+    if (order) {
       navigate('/order-placed');
-    }, 1000);
+    }
   };
 
   return (

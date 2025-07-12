@@ -1,3 +1,4 @@
+// src/components/ProductCard.jsx
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { motion } from 'framer-motion';

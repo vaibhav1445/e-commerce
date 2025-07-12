@@ -1,32 +1,7 @@
+// src/components/ProductList.jsx
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { motion } from 'framer-motion';
-// import axios from 'axios'; // For future backend integration
-
-// Temporary mock data
-const mockProducts = [
-  {
-    _id: '1',
-    name: 'Mock Product 1',
-    price: 29.99,
-    image: 'https://via.placeholder.com/300',
-    description: 'This is a mock product.',
-  },
-  {
-    _id: '2',
-    name: 'Mock Product 2',
-    price: 49.99,
-    image: 'https://via.placeholder.com/300',
-    description: 'Another mock product.',
-  },
-  {
-    _id: '3',
-    name: 'Mock Product 3',
-    price: 19.99,
-    image: 'https://via.placeholder.com/300',
-    description: 'Yet another mock product.',
-  },
-];
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -34,11 +9,18 @@ const ProductList = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // axios.get('/api/products').then(res => setProducts(res.data));
-    setProducts(mockProducts);
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/products');
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Failed to load products:", err);
+      }
+    };
+    fetchProducts();
   }, []);
 
-  // Filter products by search query
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

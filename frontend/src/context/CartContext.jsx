@@ -1,3 +1,4 @@
+// src/context/CartContext.jsx
 import React, { createContext, useState } from "react";
 import { toast } from 'react-toastify';
 
@@ -44,6 +45,29 @@ export const CartProvider = ({ children }) => {
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
   const cartTotal = cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
+  const placeOrder = async (address) => {
+    try {
+      const res = await fetch('http://localhost:5000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ items: cart, total: cartTotal, address }) // ✅ total added
+      });
+
+      if (!res.ok) throw new Error('Failed to place order');
+
+      const data = await res.json();
+      clearCart();
+      toast.success("Order placed successfully!");
+      return data;
+    } catch (error) {
+      console.error("Order error:", error);
+      toast.error("Failed to place order.");
+    }
+  };
+
   return (
     <CartContext.Provider value={{
       cart,
@@ -52,7 +76,8 @@ export const CartProvider = ({ children }) => {
       updateQuantity,
       clearCart,
       cartCount,
-      cartTotal
+      cartTotal,
+      placeOrder
     }}>
       {children}
     </CartContext.Provider>
