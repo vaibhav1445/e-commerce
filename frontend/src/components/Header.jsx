@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
-import { FiShoppingCart, FiLogOut, FiHome, FiCreditCard } from 'react-icons/fi';
+import { FiShoppingCart, FiLogOut, FiHome, FiCreditCard, FiPackage  } from 'react-icons/fi';
 import { BsSun, BsMoon } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 
@@ -75,44 +75,38 @@ const Header = () => {
       </Link>
 
       <nav className="flex items-center space-x-6 text-white font-medium text-lg">
-        <Link to="/" className="hover:text-yellow-300 transition duration-200">
-          <FiHome className="text-xl" title="Home" />
-        </Link>
-        <Link to="/checkout" className="hover:text-yellow-300 transition duration-200">
-          <FiCreditCard className="text-xl" title="Checkout" />
-        </Link>
-        <Link to="/cart" className="relative hover:text-yellow-300 transition duration-200 flex items-center">
-          <FiShoppingCart className="text-xl" title="Cart" />
-          {itemCount > 0 && (
-            <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
-              {itemCount}
-            </span>
-          )}
-        </Link>
+  <Link to="/" className="hover:text-yellow-300 transition duration-200">
+    <FiHome className="text-xl" title="Home" />
+  </Link>
+  <Link to="/checkout" className="hover:text-yellow-300 transition duration-200">
+    <FiCreditCard className="text-xl" title="Checkout" />
+  </Link>
+  <Link to="/cart" className="relative hover:text-yellow-300 transition duration-200 flex items-center">
+    <FiShoppingCart className="text-xl" title="Cart" />
+    {itemCount > 0 && (
+      <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
+        {itemCount}
+      </span>
+    )}
+  </Link>
+  <Link to="/my-orders" className="hover:text-yellow-300 transition duration-200">
+    <FiPackage className="text-xl" title="My Orders" />
+  </Link>
 
-        {/* Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className="text-white hover:text-yellow-300 transition duration-200"
-          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        >
-          {theme === 'dark' ? <BsSun className="text-xl" /> : <BsMoon className="text-xl" />}
-        </button>
+  {user && (
+    <div className="flex items-center gap-3">
+      <span className="hidden sm:inline text-sm font-semibold">{user.name}</span>
+      <button
+        onClick={handleLogout}
+        className="flex items-center gap-2 hover:bg-red-600 text-white px-3 py-1 rounded transition"
+        title="Logout"
+      >
+        <FiLogOut className="text-lg" />
+      </button>
+    </div>
+  )}
+</nav>
 
-        {/* User Info + Logout */}
-        {user && (
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline text-sm font-semibold">{user.name}</span>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 hover:bg-red-600 text-white px-3 py-1 rounded transition"
-              title="Logout"
-            >
-              <FiLogOut className="text-lg" />
-            </button>
-          </div>
-        )}
-      </nav>
     </motion.header>
   );
 };

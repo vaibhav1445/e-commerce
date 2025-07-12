@@ -13,6 +13,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
+import MyOrders from './pages/MyOrders';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>} />
               <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/order-placed" element={<OrderPlaced />} />
               <Route
