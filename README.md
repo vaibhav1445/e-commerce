@@ -58,21 +58,23 @@ A modern full-stack e-commerce web application built using **MERN Stack**, integ
 ---
 
 ## 📂 Project Structure
+
+```
 /backend
-/controllers
-/models
-/routes
-/config
-.env (not pushed)
-server.js
+  /controllers
+  /models
+  /routes
+  /config
+  .env (not pushed)
+  server.js
 
 /frontend
-/components
-/pages
-/context
-App.jsx
-main.jsx
-
+  /components
+  /pages
+  /context
+  App.jsx
+  main.jsx
+```
 
 ✅ Ensure `.env` is listed in `.gitignore` to prevent accidental leaks.
 
@@ -84,23 +86,26 @@ main.jsx
 ```bash
 git clone https://github.com/vaibhav1445/e-commerce.git
 cd e-commerce
+```
 
-2️⃣ Install backend dependencies
+### 2️⃣ Install backend dependencies
+```bash
 cd backend
 npm install
+```
 
-3️⃣ Install frontend dependencies
+### 3️⃣ Install frontend dependencies
+```bash
 cd ../frontend
 npm install
+```
 
-📌 Future Improvements
-Payment gateway integration (Razorpay or Stripe)
+---
 
-Admin panel for product management
+## 📌 Future Improvements
 
-Product reviews and ratings
-
-Category filtering and sorting
-
-Wishlist feature
-
+- 💸 Payment gateway integration (Razorpay or Stripe)
+- 🧑‍💼 Admin panel for product management
+- ⭐ Product reviews and ratings
+- 🧾 Category filtering and sorting
+- ❤️ Wishlist feature
